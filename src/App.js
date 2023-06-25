@@ -1,13 +1,14 @@
 import ExpenseItem from "./components/ExpenseItem";
+import Expenses from "./components/Expenses";
 
 
 
 
 
 
-function App() {
+ const App=()=> {
 
-  const LocationOfExpenditure=[{
+  const expenses=[{
     title:"book",
     location:"book store",
     amount:35,
@@ -34,16 +35,8 @@ function App() {
 ]
   
   return (
-    <div>{
-      LocationOfExpenditure.map((LocationOfExpenditure)=>(
-      <ExpenseItem 
-      title={LocationOfExpenditure.title}
-      location={LocationOfExpenditure.location}
-      amount={LocationOfExpenditure.amount}
-      date={LocationOfExpenditure.date}
-      ></ExpenseItem>
-    
-))}
+    <div>
+      <Expenses items={expenses}></Expenses>
     </div>
   );
 }
