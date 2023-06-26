@@ -5,25 +5,33 @@ import './ExpenseForm.css'
 function ExpenseForm(){
 
 
-const [enteredTitle,setEnteredTitle]=useState("")
-const [enteredAmount,setEnteredAmount]=useState("")
-const [enteredDate,setEnteredDate]=useState("")
-
+// const [enteredTitle,setEnteredTitle]=useState("")
+// const [enteredAmount,setEnteredAmount]=useState("")
+// const [enteredDate,setEnteredDate]=useState("")
+const [userInput,setUserInput]=useState({
+    enteredTitle:"",
+    enteredAmount:"",
+    enteredDate:""
+}
+);
 
 
 
 
 const titleHandler=(event)=>{
     
-    setEnteredTitle(event.target.value)
+    setUserInput({...userInput,
+        enteredTitle:event.target.value})
 }
 
 const amountHandler=(event)=>{
-    setEnteredAmount(event.target.value)
+    setUserInput({...userInput,
+        enteredAmount:event.target.value})
 }
 
 const dateHandler=(event)=>{
-    setEnteredDate(event.target.value)
+    setUserInput({...userInput,
+        enteredDate:event.target.value})
 }
 
 
@@ -34,9 +42,9 @@ const submitHandler=(event)=>{
     event.preventDefault();
 
     const expenseData = {
-        title: enteredTitle,
-        amount: enteredAmount,
-        date: new Date(enteredDate)
+        title: userInput.enteredTitle,
+        amount: userInput.enteredAmount,
+        date: new Date(userInput.enteredDate)
       };
   
       console.log(expenseData);
