@@ -1,3 +1,4 @@
+import NewExpense from "./components/NewExpenses/NewExpenses";
 import ExpenseItem from "./components/ExpenseItem";
 import Expenses from "./components/Expenses";
 
@@ -36,7 +37,9 @@ import Expenses from "./components/Expenses";
   
   return (
     <div>
+      <NewExpense/>
       <Expenses items={expenses}></Expenses>
+      
     </div>
   );
 }
