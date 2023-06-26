@@ -47,7 +47,7 @@ const submitHandler=(event)=>{
         date: new Date(userInput.enteredDate)
       };
   
-      console.log(expenseData);
+      console.log(expenseData);//data
 
 
 
