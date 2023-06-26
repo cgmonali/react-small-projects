@@ -5,43 +5,49 @@ import { useState } from "react";
 
 import React from "react";
 
-
-
-
- const App=()=> {
-
-  const expenses=[{
+ const dummyexpenses=[{
+   id:"id1",
     title:"book",
-    location:"book store",
+   
     amount:35,
     date:  new Date(2023,6,25)
   },
 {
+  id:"id2",
   title:"Car insurance",
-    location:"KP nagar",
+   
     amount:40,
     date:  new Date(2023,6,24)
 },
-{
+{ 
+  id:"id3",
   title:"shopping",
-    location:"srinivas nagar",
+   
     amount:65,
     date:  new Date(2023,6,23)
 },
 {
+  id:"id4",
   title:"snacks",
-    location:"BM nagar",
+   
     amount:37,
     date:  new Date(2023,6,22)
 }
 ]
 
-const [exp,setExp]=useState("");
+
+ const App=()=> {
+
+ 
+
+const [expenses,setExpenses]=useState(dummyexpenses);
 
 const addExpenseHandler= newexpense=>{
   console.log('App.js');
-  setExp(newexpense);
-  console.log(exp);
+  setExpenses((prevExpenses=>{
+    return [newexpense,...prevExpenses];
+  }));
+  // console.log(exp);
   // <Expenses items={newexpense}></Expenses>
   
 }
@@ -54,7 +60,7 @@ const addExpenseHandler= newexpense=>{
     <div>
       <NewExpense onAddExpense={addExpenseHandler}> </NewExpense>
       {/* <Expenses items={expenses}></Expenses> */}
-      <Expenses items={exp}></Expenses> 
+      <Expenses items={expenses}></Expenses> 
       {/* before entering the input the holder is being displayed */}
     </div>
   );

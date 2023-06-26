@@ -15,24 +15,26 @@ import React, { useState } from 'react';
   
   return (
     <Card className="expenses">
-      {/* {
+      <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
+      {
       props.items.map((itemss)=>(
       <ExpenseItem 
+      key={itemss.id}
       title={itemss.title}
       // location={itemss.location}
       amount={itemss.amount}
       date={itemss.date}
       ></ExpenseItem>
     
-))} */}
- <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
+))}
+ 
 
-<ExpenseItem 
+{/* <ExpenseItem 
       title={props.items.title}
       // location={itemss.location}
       amount={props.items.amount}
       date={props.items.date}
-      ></ExpenseItem>
+      ></ExpenseItem> */}
 
 
 
