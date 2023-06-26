@@ -13,7 +13,7 @@ import ExpenseDetails from "./ExpenseDetails";
         <div className="expense-item__description">
         <ExpenseDetails 
         title={props.title}
-        location={props.location}
+        // location={props.location}
          amount={props.amount}></ExpenseDetails>
         
       </div>

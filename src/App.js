@@ -1,8 +1,9 @@
 import NewExpense from "./components/NewExpenses/NewExpenses";
 import ExpenseItem from "./components/ExpenseItem";
 import Expenses from "./components/Expenses";
+import { useState } from "react";
 
-
+import React from "react";
 
 
 
@@ -34,12 +35,27 @@ import Expenses from "./components/Expenses";
     date:  new Date(2023,6,22)
 }
 ]
+
+const [exp,setExp]=useState("");
+
+const addExpenseHandler= newexpense=>{
+  console.log('App.js');
+  setExp(newexpense);
+  console.log(exp);
+  // <Expenses items={newexpense}></Expenses>
+  
+}
+
+
+
+
   
   return (
     <div>
-      <NewExpense/>
-      <Expenses items={expenses}></Expenses>
-      
+      <NewExpense onAddExpense={addExpenseHandler}> </NewExpense>
+      {/* <Expenses items={expenses}></Expenses> */}
+      <Expenses items={exp}></Expenses> 
+      {/* before entering the input the holder is being displayed */}
     </div>
   );
 }
