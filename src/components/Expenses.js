@@ -3,7 +3,8 @@ import './Expenses.css';
 import Card from './Card';
 import ExpenseFilter from "./NewExpenses/ExpenseFilter";
 import React, { useState } from 'react';
-
+import ExpensesList from "./ExpensesList";
+import ExpensesChart from "./ExpensesChart";
 
  const Expenses=(props)=> {
 
@@ -17,9 +18,9 @@ import React, { useState } from 'react';
   return (
     <Card className="expenses">
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-      
-    {props.items.length===0&&<h2>no items found</h2>}
-    {props.items.length===1&&<h2>Only single Expense here. Please add more...</h2>}
+      <ExpensesChart expenses={props.items} />
+    {props.items.length===0&&<h2 style={{color:'white'}} >no items found</h2>}
+    {props.items.length===1&&<h2 style={{color:'white'}}>Only single Expense here. Please add more...</h2>}
     {props.items.length>0&& 
     
      (props.items.map((itemss)=>(
