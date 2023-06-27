@@ -42,6 +42,8 @@ import React from "react";
 
 const [expenses,setExpenses]=useState(dummyexpenses);
 
+const [filteredYear, setFilteredYear] = useState('');
+
 const addExpenseHandler= newexpense=>{
   console.log('App.js');
   setExpenses((prevExpenses=>{
@@ -53,6 +55,21 @@ const addExpenseHandler= newexpense=>{
 }
 
 
+const filterYearHandler=(selectedYear)=>{
+  setFilteredYear(selectedYear);
+}
+
+
+
+const filteredExpenses = expenses.filter((expense) => {
+  if (filteredYear === '') {
+    return true;
+  }
+  return expense.date.getFullYear().toString() === filteredYear;
+});
+
+
+
 
 
   
@@ -60,8 +77,12 @@ const addExpenseHandler= newexpense=>{
     <div>
       <NewExpense onAddExpense={addExpenseHandler}> </NewExpense>
       {/* <Expenses items={expenses}></Expenses> */}
-      <Expenses items={expenses}></Expenses> 
-      {/* before entering the input the holder is being displayed */}
+      <Expenses 
+      items={filteredExpenses}
+      onFilterYear={filterYearHandler}
+    
+      ></Expenses> 
+      
     </div>
   );
 }
