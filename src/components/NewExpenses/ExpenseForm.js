@@ -65,6 +65,9 @@ function submitHandler(event) {
 
 
 }
+const cancelButton =()=>{
+    props.onDelete('0');
+}
 
 return(
     <form id="addForm" action="" onSubmit={submitHandler} >
@@ -90,6 +93,7 @@ return(
 
           <div className="new-expense__actions">
             <button type="submit" >Add expense</button>
+            <button onClick={cancelButton} >Cancel</button>
           </div>
 
     </form>
