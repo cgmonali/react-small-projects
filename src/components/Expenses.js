@@ -17,7 +17,25 @@ import React, { useState } from 'react';
   return (
     <Card className="expenses">
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-      {
+      
+    {props.items.length===0&&<h2>no items found</h2>}
+    {props.items.length===1&&<h2>Only single Expense here. Please add more...</h2>}
+    {props.items.length>0&& 
+    
+     (props.items.map((itemss)=>(
+      <ExpenseItem 
+      key={itemss.id}
+      title={itemss.title}
+      // location={itemss.location}
+      amount={itemss.amount}
+      date={itemss.date}
+      ></ExpenseItem>))) }
+   
+
+
+
+      {/* conditional content
+      { props.items.length===0?(<p>no items found</p>):(
       props.items.map((itemss)=>(
       <ExpenseItem 
       key={itemss.id}
@@ -27,7 +45,8 @@ import React, { useState } from 'react';
       date={itemss.date}
       ></ExpenseItem>
     
-))}
+)))
+} */}
  
 
 {/* <ExpenseItem 
