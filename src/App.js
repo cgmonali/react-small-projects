@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import InputForm from './components/InputForm';
 import DataDisplay from './components/DataDisplay';
 
-function App() {
+function App( ) {
   const [selectedOption, setSelectedOption] = useState('Electronics');
   const [dataList, setDataList] = useState([]);
 
@@ -16,6 +16,7 @@ function App() {
       setDataList(JSON.parse(storedData));
     }
   };
+
   const updateLocalStorage = (updatedList) => {
     setDataList(updatedList);
     localStorage.setItem('dataList', JSON.stringify(updatedList));
