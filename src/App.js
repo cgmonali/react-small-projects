@@ -1,88 +1,57 @@
-import NewExpense from "./components/NewExpenses/NewExpenses";
-import ExpenseItem from "./components/ExpenseItem";
-import Expenses from "./components/Expenses";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
+import InputForm from './components/InputForm';
+import DataDisplay from './components/DataDisplay';
 
-import React from "react";
+function App() {
+  const [selectedOption, setSelectedOption] = useState('Electronics');
+  const [dataList, setDataList] = useState([]);
 
- const dummyexpenses=[{
-   id:"id1",
-    title:"book",
-   
-    amount:35,
-    date:  new Date(2023,6,25)
-  },
-{
-  id:"id2",
-  title:"Car insurance",
-   
-    amount:40,
-    date:  new Date(2023,6,24)
-},
-{ 
-  id:"id3",
-  title:"shopping",
-   
-    amount:65,
-    date:  new Date(2023,6,23)
-},
-{
-  id:"id4",
-  title:"snacks",
-   
-    amount:37,
-    date:  new Date(2023,6,22)
-}
-]
+  useEffect(() => {
+    loadDataFromLocalStorage();
+  }, []);
 
+  const loadDataFromLocalStorage = () => {
+    const storedData = localStorage.getItem('dataList');
+    if (storedData) {
+      setDataList(JSON.parse(storedData));
+    }
+  };
+  const updateLocalStorage = (updatedList) => {
+    setDataList(updatedList);
+    localStorage.setItem('dataList', JSON.stringify(updatedList));
+  };
 
- const App=()=> {
+  const handleDataSubmit = (inputData) => {
+    const newData = { id: Date.now(), option: selectedOption, ...inputData };
+    const updatedDataList = [...dataList, newData];
+    updateLocalStorage(updatedDataList);
+  };
 
- 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
-const [expenses,setExpenses]=useState(dummyexpenses);
+  const handleDelete = (itemToDelete) => {
+    const updatedDataList = dataList.filter(item => item.id !== itemToDelete.id);
+    updateLocalStorage(updatedDataList);
+  };
 
-const [filteredYear, setFilteredYear] = useState('');
-
-const addExpenseHandler= newexpense=>{
-  console.log('App.js');
-  setExpenses((prevExpenses=>{
-    return [newexpense,...prevExpenses];
-  }));
-  // console.log(exp);
-  // <Expenses items={newexpense}></Expenses>
-  
-}
-
-
-const filterYearHandler=(selectedYear)=>{
-  setFilteredYear(selectedYear);
-}
-
-
-
-const filteredExpenses = expenses.filter((expense) => {
-  if (filteredYear === '') {
-    return true;
-  }
-  return expense.date.getFullYear().toString() === filteredYear;
-});
-
-
-
-
-
-  
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler}> </NewExpense>
-      {/* <Expenses items={expenses}></Expenses> */}
-      <Expenses 
-      items={filteredExpenses}
-      onFilterYear={filterYearHandler}
-    
-      ></Expenses> 
-      
+      <div>
+        <label>Choose a category</label>
+        <select value={selectedOption} onChange={handleOptionChange}>
+          <option value="Electronics">Electronics Items</option>
+          <option value="Food">Food Items</option>
+          <option value="Skincare">Skincare Items</option>
+        </select>
+      </div>
+      <InputForm onDataSubmit={handleDataSubmit} />
+      <DataDisplay
+        selectedOption={selectedOption}
+        dataList={dataList}
+        onDelete={handleDelete}
+      />
     </div>
   );
 }
