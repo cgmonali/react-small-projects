@@ -1,58 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import InputForm from './components/InputForm';
-import DataDisplay from './components/DataDisplay';
+import React, { useState, useCallback, useMemo } from 'react';
 
-function App( ) {
-  const [selectedOption, setSelectedOption] = useState('Electronics');
-  const [dataList, setDataList] = useState([]);
+import './App.css';
+import DemoList from './components/Demo/DemoList';
+import Button from './components/UI/Button/Button';
 
-  useEffect(() => {
-    loadDataFromLocalStorage();
-  }, []);
+function App() {
+ 
+  const [buttonState, setButtonState] = useState(true);
+  // const [buttonName, setButtonName] = useState('arrange ascending order');
+  const buttonName=buttonState?'Arrange in ascending order':'Arrange in descending order';
+  const title=buttonState?"this is in decending order":"this is in ascending order";
+  const changeTitleHandler = useCallback(() => {
+    setButtonState((prev)=>!prev);
+  },[]);
 
-  const loadDataFromLocalStorage = () => {
-    const storedData = localStorage.getItem('dataList');
-    if (storedData) {
-      setDataList(JSON.parse(storedData));
-    }
-  };
+  
 
-  const updateLocalStorage = (updatedList) => {
-    setDataList(updatedList);
-    localStorage.setItem('dataList', JSON.stringify(updatedList));
-  };
-
-  const handleDataSubmit = (inputData) => {
-    const newData = { id: Date.now(), option: selectedOption, ...inputData };
-    const updatedDataList = [...dataList, newData];
-    updateLocalStorage(updatedDataList);
-  };
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const handleDelete = (itemToDelete) => {
-    const updatedDataList = dataList.filter(item => item.id !== itemToDelete.id);
-    updateLocalStorage(updatedDataList);
-  };
+  const listItems = useMemo(() => [5, 3, 1, 10, 9], []);
 
   return (
-    <div>
-      <div>
-        <label>Choose a category</label>
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="Electronics">Electronics Items</option>
-          <option value="Food">Food Items</option>
-          <option value="Skincare">Skincare Items</option>
-        </select>
-      </div>
-      <InputForm onDataSubmit={handleDataSubmit} />
-      <DataDisplay
-        selectedOption={selectedOption}
-        dataList={dataList}
-        onDelete={handleDelete}
-      />
+    <div className="app">
+      <DemoList title={title} items={listItems} butstate={buttonState}/>
+      < Button onClick={changeTitleHandler} butname={buttonName}/>
     </div>
   );
 }
